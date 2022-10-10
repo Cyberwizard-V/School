@@ -1,0 +1,6 @@
+
+z = input("user input: ")
+x = 0
+while x <= len(z) - 1:
+    x += 1
+    print(z[x])
