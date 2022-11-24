@@ -1,0 +1,14 @@
+24-11-2022 13:19:25;cpm_name=North;license_plate=BB-494-H;action=check-in
+24-11-2022 11:19:25;cpm_name=North;license_plate=HH-494-B;action=check-in
+24-11-2022 13:19:25;cpm_name=North;license_plate=BB-494-H;action=check-out;parking_fee=4.0
+24-11-2022 13:19:39;cpm_name=North;license_plate=BB-494-H;action=check-in
+24-11-2022 11:19:39;cpm_name=North;license_plate=HH-494-B;action=check-in
+24-11-2022 13:20:19;cpm_name=North;license_plate=BB-494-H;action=check-in
+24-11-2022 11:20:19;cpm_name=North;license_plate=HH-494-B;action=check-in
+24-11-2022 13:20:19;cpm_name=North;license_plate=BB-494-H;action=check-out;parking_fee=4.0
+24-11-2022 13:20:45;cpm_name=North;license_plate=BB-494-H;action=check-in
+24-11-2022 11:20:45;cpm_name=North;license_plate=HH-494-B;action=check-in
+24-11-2022 13:20:45;cpm_name=North;license_plate=BB-494-H;action=check-out;parking_fee=4.0
+24-11-2022 13:56:54;cpm_name=North;license_plate=BB-494-H;action=check-in
+24-11-2022 11:56:54;cpm_name=North;license_plate=HH-494-B;action=check-in
+24-11-2022 13:56:54;cpm_name=North;license_plate=BB-494-H;action=check-out;parking_fee=4.0
