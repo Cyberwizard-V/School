@@ -25,8 +25,14 @@ import sys
 import json
 
 
-with open('movies.json', 'r', encoding='utf-8') as json_file:
+with open('movies.json', 'r+', encoding='utf-8') as json_file:
     data = json.load(json_file)
+    json_file.close()
+
+def get_movies_with_actor_from_to(beginYear : int , endYear : int , actor : str)-> list:
+    moviesButInOneLine = [x["title"] for x in data if actor in x["cast"] and beginYear <= x["year"] <= endYear]
+    return moviesButInOneLine
+
 
 def get_moviescount_from_year(year :int) -> int:
     count = 0
@@ -36,6 +42,7 @@ def get_moviescount_from_year(year :int) -> int:
 
     return count
 
+
 def get_moviescount_from_genre(genre :int) -> int:
     count = 0
     for x in data:
@@ -43,14 +50,20 @@ def get_moviescount_from_genre(genre :int) -> int:
             count += 1
     return count
 
+
 def get_movies_from_actor(actor :str ) -> list:
     movies = [x['title'] for x in data if actor in x['cast']]
-    # for x in data:
-    #     if actor in x['cast']:
-    #         movies.append(x['title'])
     return movies
 
 
+def change_year_from_movie(movieName : str, selectYear : int, changeYear : int) -> None:
+    for x in data:
+        if x['title'] == movieName and x['year'] == selectYear:
+            x['year'] = changeYear
+    jsonFile = open("movies.json", "w+")
+    jsonFile.write(json.dumps(data, indent=4))
+    jsonFile.close()
+            
 
 # We created the menu layout for you
 # Only given imports are allowed
@@ -66,7 +79,9 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    print(change_year_from_movie('Wedding Procession in Cairo', 1901, 2000))
     print(get_moviescount_from_year(2004))
     print(get_moviescount_from_genre("Science Fiction"))
     print(get_movies_from_actor('Keanu Reeves'))
+    print(get_movies_with_actor_from_to(2003, 2005, "Keanu Reeves"))
 
