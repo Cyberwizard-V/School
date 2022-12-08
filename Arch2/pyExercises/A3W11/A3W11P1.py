@@ -29,12 +29,17 @@ with open('movies.json', 'r+', encoding='utf-8') as json_file:
     data = json.load(json_file)
     json_file.close()
 
-def get_movies_with_actor_from_to(beginYear : int , endYear : int , actor : str)-> list:
-    moviesButInOneLine = [x["title"] for x in data if actor in x["cast"] and beginYear <= x["year"] <= endYear]
+
+def get_movies_with_actor_from_to(
+        beginYear: int,
+        endYear: int,
+        actor: str) -> list:
+    moviesButInOneLine = [
+        x["title"] for x in data if actor in x["cast"] and beginYear <= x["year"] <= endYear]
     return moviesButInOneLine
 
 
-def get_moviescount_from_year(year :int) -> int:
+def get_moviescount_from_year(year: int) -> int:
     count = 0
     for x in data:
         if x['year'] == year:
@@ -43,7 +48,7 @@ def get_moviescount_from_year(year :int) -> int:
     return count
 
 
-def get_moviescount_from_genre(genre :int) -> int:
+def get_moviescount_from_genre(genre: int) -> int:
     count = 0
     for x in data:
         if genre in x['genres']:
@@ -51,37 +56,104 @@ def get_moviescount_from_genre(genre :int) -> int:
     return count
 
 
-def get_movies_from_actor(actor :str ) -> list:
+def get_movies_from_actor(actor: str) -> list:
     movies = [x['title'] for x in data if actor in x['cast']]
     return movies
 
 
-def change_year_from_movie(movieName : str, selectYear : int, changeYear : int) -> None:
+def change_year_from_movie(
+        movieName: str,
+        selectYear: int,
+        changeYear: int) -> None:
     for x in data:
         if x['title'] == movieName and x['year'] == selectYear:
             x['year'] = changeYear
     jsonFile = open("movies.json", "w+")
     jsonFile.write(json.dumps(data, indent=4))
     jsonFile.close()
-            
+
+
+def change_actorname_from_movie(selectActor: str, changeName: str) -> None:
+    for x in data:
+        if selectActor in x['cast']:
+            index = x['cast'].index(selectActor)
+            x['cast'][index] = changeName
+
+
+def delete_actor_from_movie(selectActor: str) -> None:
+    for x in data:
+        if selectActor in x['cast']:
+            x['cast'].remove(selectActor)
+
+    jsonFile = open("movies.json", "w+")
+    jsonFile.write(json.dumps(data, indent=4))
+    jsonFile.close()
+    print('changed?')
+
+
+def get_movie_from_title(movie: str) -> list:
+    movies = [x["title"] for x in data if movie in x["title"]]
+    return movies
+
+
+def change_year_from_movie_and_name(
+        movieName: str,
+        selectYear: int,
+        changeYear: int,
+        newTitle: str) -> None:
+    for x in data:
+        if x['title'] == movieName and x['year'] == selectYear:
+            x['year'] = changeYear
+            x['title'] = newTitle
+    jsonFile = open("movies.json", "w+")
+    jsonFile.write(json.dumps(data, indent=4))
+    jsonFile.close()
 
 # We created the menu layout for you
 # Only given imports are allowed
-def main() -> None:
-    print("[I] Movie information overview")
-    print("[M] Make modification based on assignment")
-    print("[S] Search a movie title ")
-    print("[C] Change title and/or release year by search on title")
-    print("[Q] Quit program")
 
+
+def main() -> None:
+    while True:
+        print("[I] Movie information overview")
+        print("[M] Make modification based on assignment")
+        print("[S] Search a movie title ")
+        print("[C] Change title and/or release year by search on title")
+        print("[Q] Quit program")
+        getInput = input()
+        if getInput == "I":
+            print(get_moviescount_from_year(2004))
+            print(get_moviescount_from_genre("Science Fiction"))
+            print(get_movies_from_actor('Keanu Reeves'))
+            print(
+                get_movies_with_actor_from_to(
+                    1995,
+                    2005,
+                    "Sylvester Stallone"))
+            print(
+                change_actorname_from_movie(
+                    'Natalie Portman',
+                    'Nat Portman'))
+            print(delete_actor_from_movie('Kevin Spacey'))
+            change_year_from_movie_and_name(
+                "Rambo", 2008, 2022, "Rambo Remastered")
+        elif getInput == "M":
+            print(change_year_from_movie('Gladiator', 2000, 2001))
+            print(
+                change_year_from_movie(
+                    'After Dark in Central Park',
+                    1900,
+                    1899))
+        elif getInput == "S":
+            x = input('Search a movie: ')
+            print(get_movie_from_title(x))
+        elif getInput == "C":
+            print(change_year_from_movie('Gladiator', 2000, 2001))
+        elif getInput == "Q":
+            quit()
 
     # Implement rest of functionality
 
+
 if __name__ == "__main__":
     main()
-    print(change_year_from_movie('Wedding Procession in Cairo', 1901, 2000))
-    print(get_moviescount_from_year(2004))
-    print(get_moviescount_from_genre("Science Fiction"))
-    print(get_movies_from_actor('Keanu Reeves'))
-    print(get_movies_with_actor_from_to(2003, 2005, "Keanu Reeves"))
-
